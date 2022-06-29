@@ -10,4 +10,8 @@ class PageController extends Controller
     {
         return view('home');
     }
+    function create()
+    {
+        return view('create');
+    }
 }
