@@ -6,7 +6,7 @@
 
         <ul class="nav nav-pills">
             <li class="nav-item"><a class="nav-link" href="{{route('home')}}">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="/create">Create...</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{route('comics.create')}}">Create...</a></li>
         </ul>
     </header>
 </div>
