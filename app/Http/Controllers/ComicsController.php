@@ -57,7 +57,10 @@ class ComicsController extends Controller
     public function show($id)
     {
         $comic = Comic::find($id);
-        return view('show', compact("comic"));
+        if($comic){
+            return view('show', compact("comic"));
+        }
+        abort(404, 'Product not present in the database');
     }
 
     /**
