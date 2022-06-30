@@ -16,5 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'ComicsController@index')->name('home');
 Route::get('/comics/create', 'ComicsController@create')->name('comics.create');
+Route::get('/comics/edit/{id}', 'ComicsController@edit')->name('comics.edit');
+Route::put('/comics/update/{id}', 'ComicsController@update')->name('comics.update');
 Route::post('/comics/store', 'ComicsController@store')->name('comics.store');
+Route::delete('/comics/delete', 'ComicsController@destroy')->name('comics.delete');
 Route::get('/comics/{id}', 'ComicsController@show')->name('comics.show');

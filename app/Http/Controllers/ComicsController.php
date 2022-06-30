@@ -57,7 +57,7 @@ class ComicsController extends Controller
     public function show($id)
     {
         $comic = Comic::find($id);
-        if($comic){
+        if ($comic) {
             return view('show', compact("comic"));
         }
         abort(404, 'Product not present in the database');
@@ -71,7 +71,8 @@ class ComicsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comic = Comic::find($id);
+        return view('edit', compact("comic"));
     }
 
     /**
@@ -83,7 +84,14 @@ class ComicsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comic = Comic::find($id);
+
+        $comic->title = $request->title;
+        $comic->cover = $request->cover;
+        $comic->type = $request->type;
+        $comic->save();
+
+        return redirect()->route('home');
     }
 
     /**
@@ -92,8 +100,12 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy()
     {
-        //
+        $id = $_REQUEST['id'];
+        $comic = Comic::find($id);
+        $comic->delete();
+
+        return redirect()->route('home');
     }
 }
