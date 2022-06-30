@@ -10,5 +10,6 @@ class Comic extends Model
         'title',
         'type',
         'cover',
+        'slug',
     ];
 }

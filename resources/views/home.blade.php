@@ -2,6 +2,12 @@
 
 @section('content')
 <div class="container">
+    @if (session('message'))
+    <div class="alert alert-danger" role="alert">
+        {{ session('message') }}
+    </div>
+    @endif
+
     <ul class="list-group list-group-flush">
         @foreach ($comics as $comic)
         <li class="list-group-item">
@@ -15,7 +21,7 @@
                 </form>
 
                 <a class="btn btn-outline-secondary" href="{{route('comics.edit', $comic)}}">Edit</a>
-                <a class="btn btn-outline-primary" href="{{route('comics.show', $comic->id)}}">Show</a>
+                <a class="btn btn-outline-primary" href="{{route('comics.show', $comic->slug)}}">Show</a>
             </div>
         </li>
         @endforeach

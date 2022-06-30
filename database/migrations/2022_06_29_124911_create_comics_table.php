@@ -18,6 +18,7 @@ class CreateComicsTable extends Migration
 
             $table->string('title', 200);
             $table->string('cover', 200);
+            $table->string('slug', 300);
             $table->string('type', 50);
 
             $table->timestamps();

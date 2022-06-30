@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ComicsController extends Controller
 {
@@ -42,9 +43,10 @@ class ComicsController extends Controller
         $data = $request->all();
 
         $new_comic->fill($data);
+        $new_comic->slug = $this->createSlug($request->title);
 
         $new_comic->save();
-        return $this->show($new_comic->id);
+        return redirect()->route('comics.show', $new_comic->slug);
     }
 
     /**
@@ -53,9 +55,9 @@ class ComicsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        $comic = Comic::find($id);
+        $comic = Comic::where("slug", $slug)->first();
         if ($comic) {
             return view('show', compact("comic"));
         }
@@ -91,6 +93,7 @@ class ComicsController extends Controller
         $comic->title = $request->title;
         $comic->cover = $request->cover;
         $comic->type = $request->type;
+        $comic->slug = $this->createSlug($request->title);
         $comic->save();
 
         return redirect()->route('home');
@@ -108,6 +111,16 @@ class ComicsController extends Controller
         $comic = Comic::find($id);
         $comic->delete();
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('message', "Comic $comic->name was deleted");
+    }
+
+    function createSlug($string)
+    {
+        $slug = Str::slug($string, '-');
+        $comicWithSlug = Comic::where('slug', $slug)->first();
+        if ($comicWithSlug) {
+            $slug = $slug . '-' . rand(10, 6969);
+        }
+        return $slug;
     }
 }
