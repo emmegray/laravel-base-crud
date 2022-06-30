@@ -2,6 +2,6 @@
 
 @section('content')
 <div class="container">
-    <h1>Page not found</h1>
+    <h1>{{ $exception->getMessage() }}</h1>
 </div>
 @endsection

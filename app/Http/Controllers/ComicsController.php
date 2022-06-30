@@ -60,7 +60,7 @@ class ComicsController extends Controller
         if ($comic) {
             return view('show', compact("comic"));
         }
-        abort(404, 'Product not present in the database');
+        abort(404, 'Comic not found');
     }
 
     /**
@@ -72,7 +72,10 @@ class ComicsController extends Controller
     public function edit($id)
     {
         $comic = Comic::find($id);
-        return view('edit', compact("comic"));
+        if ($comic) {
+            return view('edit', compact("comic"));
+        }
+        abort(404, 'Comic not found');
     }
 
     /**
